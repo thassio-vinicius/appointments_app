@@ -6,11 +6,18 @@ class DoctorCard extends StatelessWidget {
   final String doctorField;
   final String time;
   final String photo;
+  final bool appointmentCard;
+  final bool showDoctorField;
+  final bool petDoctor;
+
   const DoctorCard({
-    @required this.doctorField,
     @required this.doctorName,
-    @required this.time,
+    @required this.appointmentCard,
+    this.doctorField,
+    this.time,
     this.photo,
+    this.showDoctorField = true,
+    this.petDoctor = false,
   });
 
   @override
@@ -21,7 +28,7 @@ class DoctorCard extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.95,
         height: MediaQuery.of(context).size.height * 0.1,
         decoration: BoxDecoration(
-          color: HexColor('#BEEAF5'),
+          color: HexColor(petDoctor ? '#93D8CA' : '#BEEAF5'),
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
         child: Row(
@@ -67,28 +74,48 @@ class DoctorCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      'Appointment with Dr. $doctorName',
-                      style: TextStyle(fontSize: 15, color: Colors.black),
-                    ),
+                    appointmentCard
+                        ? Text(
+                            'Appointment with Dr. $doctorName',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color:
+                                  petDoctor ? HexColor('24AF93') : Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : Text(
+                            'Dr. $doctorName',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: petDoctor
+                                  ? HexColor('24AF93')
+                                  : Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          doctorField,
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                        Text(
-                          time,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 17),
-                        )
+                        if (showDoctorField)
+                          Text(
+                            doctorField,
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
+                        if (appointmentCard)
+                          Text(
+                            time,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: petDoctor
+                                    ? HexColor('24AF93')
+                                    : Theme.of(context).primaryColor,
+                                fontSize: 17),
+                          )
                       ],
                     )
                   ],

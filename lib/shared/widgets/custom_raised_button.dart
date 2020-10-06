@@ -1,10 +1,11 @@
+import 'package:drtime_patients/utils/hex_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomRaisedButton extends StatelessWidget {
   const CustomRaisedButton({
-    @required this.color,
     @required this.label,
     @required this.onTap,
+    this.color,
     this.labelColor = Colors.white,
     this.onLoadingTap,
     this.onLoadingWidget,
@@ -58,7 +59,7 @@ class CustomRaisedButton extends StatelessWidget {
         height: height ?? MediaQuery.of(context).size.height * 0.06,
         width: width ?? MediaQuery.of(context).size.width * 0.3,
         decoration: BoxDecoration(
-          color: color,
+          color: color ?? HexColor('05B0DA'),
           gradient: gradient,
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         ),

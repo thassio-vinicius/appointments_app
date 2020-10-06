@@ -8,6 +8,15 @@ class Strings {
   static const String useTermsConfirm =
       'By continuing you agree to the terms of use and privacy policy of';
   static const String drTime = 'Dr. Time, Inc';
+  static const String confirm = 'Confirm';
+
+  ///Add doctor dialog
+  static const String addDoctorTitle = 'Add a New Doctor';
+  static const String addDoctor = '+ Add Doctor';
+  static const String nameHint = 'Doctor\'s Name';
+  static const String fieldHint = 'Doctor\'s Specialty';
+  static const String nameError = 'Name can\'t be empty';
+  static const String fieldError = 'Specialty can\'t be empty';
 
   ///Email & Password page
   static const String register = 'Register';

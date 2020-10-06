@@ -5,7 +5,6 @@ import 'package:drtime_patients/UI/sign_in_model.dart';
 import 'package:drtime_patients/shared/widgets/custom_raised_button.dart';
 import 'package:drtime_patients/shared/widgets/custom_textfield.dart';
 import 'package:drtime_patients/shared/widgets/show_alert_dialog.dart';
-import 'package:drtime_patients/utils/hex_color.dart';
 import 'package:drtime_patients/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -128,7 +127,6 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     List<Widget> children = <Widget>[
       CustomTextField(
           controller: _emailController,
-          label: Strings.emailLabel,
           hint: Strings.emailHint,
           errorText: model.emailErrorText,
           onChanged: model.updateEmail,
@@ -140,7 +138,6 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
         isPhoneNumberField: true,
         hint: Strings.phoneHint,
         controller: _phoneNumberController,
-        label: Strings.phoneNumberLabel,
         errorText: model.phoneNumberErrorText,
         onPhoneNumberChanged: _onPhoneNumberChanged,
         onPhoneNumberValidated: (number) => _phoneNumberEditingComplete,
@@ -148,7 +145,6 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
       ),
       CustomTextField(
         controller: _passwordController,
-        label: model.passwordLabelText,
         hint: Strings.passwordHint,
         errorText: model.passwordErrorText,
         enabled: !model.isLoading,
@@ -163,7 +159,6 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
           height: MediaQuery.of(context).size.height * 0.06,
           label: model.primaryButtonText,
           width: MediaQuery.of(context).size.width * 0.80,
-          color: HexColor('#05B0DA'),
           loading: model.isLoading,
           onTap: model.isLoading ? null : _submit,
         ),
