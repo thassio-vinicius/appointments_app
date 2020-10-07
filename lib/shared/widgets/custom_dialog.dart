@@ -14,19 +14,30 @@ class CustomDialog extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
+          height: MediaQuery.of(context).size.height * 0.45,
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  title,
-                  style: TextStyle(
+              Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.close),
                     color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: Center(
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               content,
             ],

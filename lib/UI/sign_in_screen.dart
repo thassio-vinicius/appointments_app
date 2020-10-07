@@ -17,14 +17,14 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
     return ChangeNotifierProvider<EmailPasswordSignInModel>(
       create: (_) => EmailPasswordSignInModel(),
       child: Consumer<EmailPasswordSignInModel>(
-        builder: (_, model, __) => EmailPasswordSignInPage(model: model),
+        builder: (_, model, __) => _EmailPasswordSignInPage(model: model),
       ),
     );
   }
 }
 
-class EmailPasswordSignInPage extends StatefulWidget {
-  const EmailPasswordSignInPage({@required this.model});
+class _EmailPasswordSignInPage extends StatefulWidget {
+  const _EmailPasswordSignInPage({@required this.model});
   final EmailPasswordSignInModel model;
 
   @override
@@ -32,9 +32,10 @@ class EmailPasswordSignInPage extends StatefulWidget {
       _EmailPasswordSignInPageState();
 }
 
-class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
+class _EmailPasswordSignInPageState extends State<_EmailPasswordSignInPage> {
   final FocusScopeNode _node = FocusScopeNode();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _displayNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   double _opacity = 0;
@@ -103,10 +104,18 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     }
   }
 
+  void _displayNameEditingComplete() {
+    if (model.canSubmitDisplayName) {
+      _node.nextFocus();
+    }
+  }
+
   void _passwordEditingComplete() {
-    if (model.canSubmitPassword) {
+    if (!model.canSubmitPassword) {
       _node.previousFocus();
     }
+
+    _submit();
   }
 
   _onPhoneNumberChanged(number) {
@@ -134,6 +143,14 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
           onEditingComplete: _emailEditingComplete,
           textInputType: TextInputType.emailAddress,
           inputFormatters: <TextInputFormatter>[model.emailInputFormatter]),
+      CustomTextField(
+        controller: _displayNameController,
+        hint: Strings.displayNameHint,
+        errorText: model.displayNameErrorText,
+        onChanged: model.updateDisplayName,
+        enabled: !model.isLoading,
+        onEditingComplete: _displayNameEditingComplete,
+      ),
       CustomTextField(
         isPhoneNumberField: true,
         hint: Strings.phoneHint,

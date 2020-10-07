@@ -12,44 +12,44 @@ class _TodayScreenState extends State<TodayScreen> {
     return SingleChildScrollView(
       child: Column(children: [
         DoctorCard(
-          doctorField: 'coventry',
+          doctorSpecialty: 'coventry',
           doctorName: 'Kung Pao',
           time: '14:00PM',
           appointmentCard: true,
         ),
         DoctorCard(
-          doctorField: 'coventry',
+          doctorSpecialty: 'coventry',
           doctorName: 'Kung Pao',
           time: '14:00PM',
           appointmentCard: true,
         ),
         DoctorCard(
-          doctorField: 'coventry',
+          doctorSpecialty: 'coventry',
           doctorName: 'Kung Pao',
           time: '14:00PM',
           appointmentCard: true,
         ),
         DoctorCard(
-          doctorField: 'coventry',
+          doctorSpecialty: 'coventry',
           doctorName: 'Kung Pao',
           time: '14:00PM',
           appointmentCard: true,
         ),
         DoctorCard(
-          doctorField: 'coventry',
+          doctorSpecialty: 'coventry',
           doctorName: 'Kung Pao',
           time: '14:00PM',
           appointmentCard: true,
         ),
         DoctorCard(
-          doctorField: 'coventry',
+          doctorSpecialty: 'coventry',
           doctorName: 'Kung Pao',
           time: '14:00PM',
           appointmentCard: true,
           petDoctor: true,
         ),
         DoctorCard(
-          doctorField: 'coventry',
+          doctorSpecialty: 'coventry',
           doctorName: 'Kung Pao',
           time: '14:00PM',
           appointmentCard: true,

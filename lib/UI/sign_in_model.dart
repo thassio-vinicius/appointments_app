@@ -3,22 +3,22 @@ import 'package:drtime_patients/utils/validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
+class EmailPasswordSignInModel with TextFieldValidators, ChangeNotifier {
   EmailPasswordSignInModel({
     this.email = '',
     this.password = '',
     this.phoneNumber = '',
+    this.displayName = '',
     this.isLoading = false,
     this.submitted = false,
-    this.usernameTaken = false,
   });
 
   String email;
   String password;
   String phoneNumber;
+  String displayName;
   bool isLoading;
   bool submitted;
-  bool usernameTaken;
 
   Future<bool> submit() async {
     print('submit');
@@ -42,55 +42,27 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   void updatePassword(String password) => updateWith(password: password);
 
-  void updateConfirmPassword(String confirmPassword) =>
-      updateWith(confirmPassword: confirmPassword);
-
   void updatePhoneNumber(String phoneNumber) =>
       updateWith(phoneNumber: phoneNumber);
-
-  void updateUsername(String username) {
-    updateWith(username: username, usernameTaken: false);
-  }
 
   void updateDisplayName(String displayName) =>
       updateWith(displayName: displayName);
 
-  void updateFormType() {
-    updateWith(
-      email: '',
-      password: '',
-      displayName: '',
-      username: '',
-      confirmPassword: '',
-      phoneNumber: '',
-      isLoading: false,
-      submitted: false,
-      usernameTaken: false,
-    );
-  }
-
   void updateWith({
     String email,
     String password,
-    String username,
     String displayName,
     String phoneNumber,
-    String confirmPassword,
     bool isLoading,
     bool submitted,
-    bool usernameTaken,
   }) {
     this.email = email ?? this.email;
     this.password = password ?? this.password;
     this.phoneNumber = phoneNumber ?? this.phoneNumber;
+    this.displayName = displayName ?? this.displayName;
     this.isLoading = isLoading ?? this.isLoading;
     this.submitted = submitted ?? this.submitted;
-    this.usernameTaken = usernameTaken ?? this.usernameTaken;
     notifyListeners();
-  }
-
-  String get passwordLabelText {
-    return Strings.password8CharactersLabel;
   }
 
   // Getters
@@ -107,11 +79,16 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   bool get canSubmitEmail {
-    return emailSubmitValidator.isValid(email);
+    return emailSubmitValidator.isValid(email) && email.isNotEmpty;
   }
 
   bool get canSubmitPassword {
-    return passwordSignInSubmitValidator.isValid(password);
+    return passwordSubmitValidator.isValid(password) && password.isNotEmpty;
+  }
+
+  bool get canSubmitDisplayName {
+    return displayNameSubmitValidator.isValid(displayName) &&
+        displayName.isNotEmpty;
   }
 
   bool get canSubmitPhoneNumber {
@@ -122,8 +99,10 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   bool get canSubmit {
     bool canSubmitFields;
 
-    canSubmitFields =
-        canSubmitEmail && canSubmitPassword && canSubmitPhoneNumber;
+    canSubmitFields = canSubmitEmail &&
+        canSubmitPassword &&
+        canSubmitPhoneNumber &&
+        canSubmitDisplayName;
 
     print(canSubmitFields);
     return canSubmitFields && !isLoading;
@@ -153,8 +132,16 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return showErrorText ? errorText : null;
   }
 
+  String get displayNameErrorText {
+    final bool showErrorText = submitted && !canSubmitDisplayName;
+    final String errorText = displayName.isEmpty
+        ? Strings.invalidDisplayNameEmpty
+        : Strings.invalidDisplayNameTooShort;
+    return showErrorText ? errorText : null;
+  }
+
   @override
   String toString() {
-    return 'email: $email, password: $password, phoneNumber: $phoneNumber, isLoading: $isLoading, submitted: $submitted';
+    return 'email: $email, displayName: $displayName, password: $password, phoneNumber: $phoneNumber, isLoading: $isLoading, submitted: $submitted';
   }
 }

@@ -1,10 +1,9 @@
-import 'package:drtime_patients/shared/widgets/custom_dialog.dart';
-import 'package:drtime_patients/shared/widgets/custom_raised_button.dart';
-import 'package:drtime_patients/shared/widgets/custom_textfield.dart';
-import 'package:drtime_patients/shared/widgets/doctor_card.dart';
+import 'package:drtime_patients/shared/widgets/add_doctor_dialog.dart';
+import 'package:drtime_patients/shared/widgets/doctor_provider.dart';
 import 'package:drtime_patients/utils/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DoctorScreen extends StatefulWidget {
   @override
@@ -17,41 +16,9 @@ class _DoctorScreenState extends State<DoctorScreen> {
     return Column(
       children: [
         SingleChildScrollView(
-          child: Column(
-            children: [
-              DoctorCard(
-                doctorName: 'Kung Pao',
-                appointmentCard: false,
-                doctorField: 'Dentistry',
-              ),
-              DoctorCard(
-                doctorName: 'Kung Pao',
-                appointmentCard: false,
-                doctorField: 'Dentistry',
-              ),
-              DoctorCard(
-                doctorName: 'Kung Pao',
-                appointmentCard: false,
-                doctorField: 'Dentistry',
-              ),
-              DoctorCard(
-                doctorName: 'Kung Pao',
-                appointmentCard: false,
-                doctorField: 'Dentistry',
-              ),
-              DoctorCard(
-                doctorName: 'Kung Pao',
-                appointmentCard: false,
-                doctorField: 'Dentistry',
-                petDoctor: true,
-              ),
-              DoctorCard(
-                doctorName: 'Kung Pao',
-                appointmentCard: false,
-                doctorField: 'Dentistry',
-                petDoctor: true,
-              ),
-            ],
+          child: Consumer<DoctorScreenProvider>(
+            builder: (_, provider, __) =>
+                Column(children: provider.doctorCards),
           ),
         ),
         Align(
@@ -60,65 +27,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
             padding: const EdgeInsets.only(left: 8.0),
             child: GestureDetector(
               onTap: () => showDialog(
-                context: context,
-                builder: (_) {
-                  final TextEditingController nameController =
-                      TextEditingController();
-                  final TextEditingController fieldController =
-                      TextEditingController();
-                  final FocusScopeNode node = FocusScopeNode();
-
-                  bool showNameError = false;
-                  bool showFieldError = false;
-
-                  return CustomDialog(
-                    title: Strings.addDoctorTitle,
-                    content: FocusScope(
-                      node: node,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            controller: nameController,
-                            hint: Strings.nameHint,
-                            errorText: showNameError ? Strings.nameError : null,
-                            enabled: true,
-                          ),
-                          CustomTextField(
-                            controller: fieldController,
-                            hint: Strings.fieldHint,
-                            errorText:
-                                showFieldError ? Strings.fieldError : null,
-                            enabled: true,
-                            textInputAction: TextInputAction.done,
-                          ),
-                          CustomRaisedButton(
-                            label: Strings.confirm,
-                            onTap: () {
-                              if (nameController.text.isNotEmpty &&
-                                  fieldController.text.isNotEmpty) {
-                                Navigator.pop(context);
-                              } else {
-                                if (nameController.text.isEmpty) {
-                                  setState(() {
-                                    showNameError = true;
-                                  });
-                                }
-
-                                if (fieldController.text.isEmpty) {
-                                  setState(() {
-                                    showFieldError = true;
-                                  });
-                                }
-                                return;
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+                  context: context, builder: (_) => AddDoctorDialogBuilder()),
               child: Text(
                 Strings.addDoctor,
                 style: TextStyle(

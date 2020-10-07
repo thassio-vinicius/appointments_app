@@ -45,35 +45,37 @@ class _HomeScreenState extends State<HomeScreen>
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _tabTitle(),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: InkWell(
-                            child: Image(image: AssetImage(Images.settings)),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _tabTitle(),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: InkWell(
+                              child: Image(image: AssetImage(Images.settings)),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.95,
-                      height: MediaQuery.of(context).size.height * 0.85,
-                      child: TabBarView(
-                          physics: NeverScrollableScrollPhysics(),
-                          controller: _tabController,
-                          children: [
-                            TodayScreen(),
-                            DoctorScreen(),
-                            CalendarScreen()
-                          ]),
-                    ),
-                  ],
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.95,
+                        height: MediaQuery.of(context).size.height * 0.85,
+                        child: TabBarView(
+                            physics: NeverScrollableScrollPhysics(),
+                            controller: _tabController,
+                            children: [
+                              TodayScreen(),
+                              DoctorScreen(),
+                              CalendarScreen()
+                            ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Align(

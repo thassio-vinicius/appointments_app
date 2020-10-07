@@ -69,11 +69,12 @@ class MinLengthStringValidator extends StringValidator {
   }
 }
 
-class EmailAndPasswordValidators {
+class TextFieldValidators {
   final TextInputFormatter emailInputFormatter =
       ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator());
   final StringValidator emailSubmitValidator = EmailSubmitRegexValidator();
-  final StringValidator passwordSignInSubmitValidator =
-      NonEmptyStringValidator();
+  final StringValidator passwordSubmitValidator = MinLengthStringValidator(6);
+  final StringValidator displayNameSubmitValidator =
+      MinLengthStringValidator(3);
   final StringValidator phoneNumberSubmitValidator = NonEmptyStringValidator();
 }
