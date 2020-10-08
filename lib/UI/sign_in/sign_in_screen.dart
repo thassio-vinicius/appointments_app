@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:drtime_patients/UI/home_screen.dart';
-import 'package:drtime_patients/UI/sign_in_model.dart';
+import 'package:drtime_patients/UI/sign_in/sign_in_model.dart';
+import 'package:drtime_patients/UI/tabs/home_screen.dart';
 import 'package:drtime_patients/shared/widgets/custom_raised_button.dart';
 import 'package:drtime_patients/shared/widgets/custom_textfield.dart';
 import 'package:drtime_patients/shared/widgets/show_alert_dialog.dart';
@@ -11,12 +11,12 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class EmailPasswordSignInPageBuilder extends StatelessWidget {
+class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EmailPasswordSignInModel>(
-      create: (_) => EmailPasswordSignInModel(),
-      child: Consumer<EmailPasswordSignInModel>(
+    return ChangeNotifierProvider<SignInModel>(
+      create: (_) => SignInModel(),
+      child: Consumer<SignInModel>(
         builder: (_, model, __) => _EmailPasswordSignInPage(model: model),
       ),
     );
@@ -25,7 +25,7 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
 
 class _EmailPasswordSignInPage extends StatefulWidget {
   const _EmailPasswordSignInPage({@required this.model});
-  final EmailPasswordSignInModel model;
+  final SignInModel model;
 
   @override
   _EmailPasswordSignInPageState createState() =>
@@ -40,7 +40,7 @@ class _EmailPasswordSignInPageState extends State<_EmailPasswordSignInPage> {
   final TextEditingController _phoneNumberController = TextEditingController();
   double _opacity = 0;
 
-  EmailPasswordSignInModel get model => widget.model;
+  SignInModel get model => widget.model;
 
   @override
   void initState() {
@@ -57,8 +57,7 @@ class _EmailPasswordSignInPageState extends State<_EmailPasswordSignInPage> {
     super.dispose();
   }
 
-  void _showSignInError(
-      EmailPasswordSignInModel model, dynamic exception) async {
+  void _showSignInError(SignInModel model, dynamic exception) async {
     await showAlertDialog(
       context: context,
       title: model.errorAlertTitle,
@@ -81,6 +80,7 @@ class _EmailPasswordSignInPageState extends State<_EmailPasswordSignInPage> {
       if (success) {
         var prefs = await SharedPreferences.getInstance();
         prefs.setBool('signedIn', true);
+        prefs.setString('displayName', _displayNameController.text);
 
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => HomeScreen()));

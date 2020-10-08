@@ -5,6 +5,7 @@ class DoctorCard extends StatelessWidget {
   final String doctorName;
   final String doctorSpecialty;
   final String time;
+  final String appointment;
   final String photo;
   final bool appointmentCard;
   final bool showDoctorSpecialty;
@@ -14,6 +15,7 @@ class DoctorCard extends StatelessWidget {
   const DoctorCard({
     @required this.doctorName,
     @required this.appointmentCard,
+    this.appointment,
     this.doctorSpecialty,
     this.time,
     this.photo,
@@ -32,7 +34,8 @@ class DoctorCard extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.95,
           height: MediaQuery.of(context).size.height * 0.1,
           decoration: BoxDecoration(
-            color: HexColor(petDoctor ? '#93D8CA' : '#BEEAF5'),
+            color:
+                petDoctor ? HexColor('#93D8CA') : Theme.of(context).cardColor,
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           child: Row(
@@ -44,7 +47,8 @@ class DoctorCard extends StatelessWidget {
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.1,
                   decoration: BoxDecoration(
-                    color: photo == null ? Colors.grey : Colors.transparent,
+                    color:
+                        photo == null ? HexColor('E5E5E5') : Colors.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     boxShadow: [
                       BoxShadow(
@@ -113,7 +117,7 @@ class DoctorCard extends StatelessWidget {
                             ),
                           if (appointmentCard)
                             Text(
-                              time,
+                              time ?? appointment,
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: petDoctor

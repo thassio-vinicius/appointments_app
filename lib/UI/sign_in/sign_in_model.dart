@@ -3,8 +3,8 @@ import 'package:drtime_patients/utils/validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class EmailPasswordSignInModel with TextFieldValidators, ChangeNotifier {
-  EmailPasswordSignInModel({
+class SignInModel with TextFieldValidators, ChangeNotifier {
+  SignInModel({
     this.email = '',
     this.password = '',
     this.phoneNumber = '',

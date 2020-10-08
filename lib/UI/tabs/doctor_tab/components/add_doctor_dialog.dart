@@ -1,8 +1,8 @@
-import 'package:drtime_patients/shared/widgets/add_doctor_model.dart';
+import 'package:drtime_patients/UI/tabs/doctor_tab/components/add_doctor_model.dart';
+import 'package:drtime_patients/UI/tabs/doctor_tab/doctor_screen_provider.dart';
 import 'package:drtime_patients/shared/widgets/custom_dialog.dart';
 import 'package:drtime_patients/shared/widgets/custom_raised_button.dart';
 import 'package:drtime_patients/shared/widgets/custom_textfield.dart';
-import 'package:drtime_patients/shared/widgets/doctor_provider.dart';
 import 'package:drtime_patients/shared/widgets/show_alert_dialog.dart';
 import 'package:drtime_patients/utils/strings.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class _AddDoctorDialogState extends State<_AddDoctorDialog> {
           Provider.of<DoctorScreenProvider>(context, listen: false);
       if (success) {
         provider.addDoctorCard(
-          doctorName: model.name,
+          doctorName: model.name.replaceAll('Dr.', '').replaceAll('Doctor', ''),
           specialty: model.specialty,
           petDoctor: model.petDoctor,
         );

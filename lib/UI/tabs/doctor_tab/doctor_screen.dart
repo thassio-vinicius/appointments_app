@@ -1,9 +1,10 @@
-import 'package:drtime_patients/shared/widgets/add_doctor_dialog.dart';
-import 'package:drtime_patients/shared/widgets/doctor_provider.dart';
 import 'package:drtime_patients/utils/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'components/add_doctor_dialog.dart';
+import 'doctor_screen_provider.dart';
 
 class DoctorScreen extends StatefulWidget {
   @override

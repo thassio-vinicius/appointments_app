@@ -1,4 +1,6 @@
 class Strings {
+  static const String cancel = 'Cancel';
+  static const String notesHint = 'Add Notes';
   static const String ok = 'Ok';
   static const String signInTitle = 'Sign in to Dr. Time';
   static const String displayNameHint = 'Full Name';
@@ -10,6 +12,20 @@ class Strings {
       'By continuing you agree to the terms of use and privacy policy of';
   static const String drTime = 'Dr. Time, Inc';
   static const String confirm = 'Confirm';
+  static const String back = 'Back';
+  static const String from = 'From:';
+  static const String to = 'To:';
+  static const String soonestAvailable = 'Soonest Available';
+  static const String fitSchedule = 'Fit my schedule';
+  static const String noAppointmentsSchedule =
+      'No appointments available for this schedule';
+  static const String noAppointments = 'No appointments for now';
+  static const String settings = 'Settings';
+  static const String lock = 'Lock Dr. Time';
+  static const String getHelp = 'Get Help';
+  static const String manageAlerts = 'Manage Alerts';
+  static const String policy = 'Privacy policy & Terms of Use';
+  static const List<String> tabs = ['Today', 'My Doctors', 'Medical Calendar'];
 
   ///Add doctor dialog
   static const String addDoctorTitle = 'Add a New Doctor';

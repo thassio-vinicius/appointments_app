@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:drtime_patients/UI/home_screen.dart';
-import 'package:drtime_patients/UI/sign_in_screen.dart';
+import 'package:drtime_patients/UI/sign_in/sign_in_screen.dart';
+import 'package:drtime_patients/UI/tabs/home_screen.dart';
 import 'package:drtime_patients/utils/customfade_route.dart';
 import 'package:drtime_patients/utils/image_helper.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
       return Timer(
           duration,
           () => _fadeOutNavigation(
-              pageRoute: EmailPasswordSignInPageBuilder(),
-              routeName: 'SignInScreen'));
+              pageRoute: SignInScreen(), routeName: 'SignInScreen'));
     }
   }
 
