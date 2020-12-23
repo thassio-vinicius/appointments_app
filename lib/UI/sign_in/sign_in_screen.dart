@@ -67,7 +67,7 @@ class _EmailPasswordSignInPageState extends State<_EmailPasswordSignInPage> {
   }
 
   _fadeInTransition() {
-    Timer(Duration(milliseconds: 1000), () {
+    Timer(Duration(milliseconds: 500), () {
       setState(() {
         _opacity = 1;
       });
@@ -196,8 +196,9 @@ class _EmailPasswordSignInPageState extends State<_EmailPasswordSignInPage> {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: _opacity,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 500),
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

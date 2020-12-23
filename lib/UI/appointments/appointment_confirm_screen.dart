@@ -102,14 +102,17 @@ class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
                             petDoctor: widget.petDoctor,
                           );
 
-                          Provider.of<TodayScreenProvider>(context,
-                                  listen: false)
-                              .addDoctorCard(
-                            doctorName: widget.doctorName,
-                            specialty: widget.doctorSpecialty,
-                            time: widget.appointment.split(' ').first,
-                            petDoctor: widget.petDoctor,
-                          );
+                          if (int.parse(widget.appointment.split('.')[1]) ==
+                              DateTime.now().day) {
+                            Provider.of<TodayScreenProvider>(context,
+                                    listen: false)
+                                .addDoctorCard(
+                              doctorName: widget.doctorName,
+                              specialty: widget.doctorSpecialty,
+                              time: widget.appointment.split(',').first,
+                              petDoctor: widget.petDoctor,
+                            );
+                          }
 
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (_) => HomeScreen()));

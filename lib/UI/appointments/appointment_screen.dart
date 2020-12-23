@@ -6,6 +6,7 @@ import 'package:drtime_patients/utils/hex_color.dart';
 import 'package:drtime_patients/utils/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import 'appointment_confirm_screen.dart';
@@ -26,6 +27,7 @@ class AppointmentScreen extends StatefulWidget {
 
 class _AppointmentScreenState extends State<AppointmentScreen>
     with SingleTickerProviderStateMixin {
+  bool _fromTimeAfter = false;
   TabController _tabController;
   DateTime _pickedDateFrom = DateTime.now();
   DateTime _pickedDateTo = DateTime.now();
@@ -142,9 +144,13 @@ class _AppointmentScreenState extends State<AppointmentScreen>
               child: _filteredAppointments().isEmpty
                   ? Center(
                       child: Text(
-                        Strings.noAppointmentsSchedule,
+                        _fromTimeAfter
+                            ? Strings.fromTimeAfter
+                            : Strings.noAppointmentsSchedule,
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: _fromTimeAfter
+                              ? Colors.red
+                              : Theme.of(context).primaryColor,
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
                         ),
@@ -162,7 +168,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
       children: [
         _timePicker(true),
         Text(
-          'to',
+          Strings.to,
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w500,
@@ -210,6 +216,22 @@ class _AppointmentScreenState extends State<AppointmentScreen>
     } else {
       setState(() {
         _timeTo = result;
+      });
+    }
+
+    if (_timeFrom.hour > _timeTo.hour) {
+      if (_timeFrom.minute > _timeTo.minute) {
+        setState(() {
+          _fromTimeAfter = true;
+        });
+      } else {
+        setState(() {
+          _fromTimeAfter = false;
+        });
+      }
+    } else {
+      setState(() {
+        _fromTimeAfter = false;
       });
     }
   }
@@ -265,7 +287,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
               initialCalendarMode: DatePickerMode.day,
               initialDate: from ? _pickedDateFrom : _pickedDateTo,
               firstDate: DateTime.now(),
-              lastDate: DateTime(2020, 12, 31),
+              lastDate: DateTime.now().add(Duration(days: 366)),
               onDateChanged: (date) {
                 if (from) {
                   setState(() {
@@ -276,7 +298,12 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                     _pickedDateTo = date;
                   });
                 }
-                Navigator.pop(context);
+                if (_pickedDateFrom.isAfter(_pickedDateTo)) {
+                  Fluttertoast.showToast(
+                      msg: "From date can't be after To date");
+                } else {
+                  Navigator.pop(context);
+                }
               }),
         ),
       ),
@@ -294,7 +321,8 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                   mode: CupertinoDatePickerMode.date,
                   use24hFormat: false,
                   initialDateTime: from ? _pickedDateFrom : _pickedDateTo,
-                  maximumYear: 2020,
+                  minimumYear: DateTime.now().year,
+                  minimumDate: DateTime.now(),
                   onDateTimeChanged: (date) {
                     if (from) {
                       setState(() {
@@ -304,6 +332,13 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                       setState(() {
                         _pickedDateTo = date;
                       });
+                    }
+
+                    if (_pickedDateFrom.isAfter(_pickedDateTo)) {
+                      Fluttertoast.showToast(
+                          msg: "From date can't be after To date");
+                    } else {
+                      Navigator.pop(context);
                     }
                   }),
               onTap: () => Navigator.pop(context)),
@@ -334,7 +369,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
       int month = int.parse(date.first);
       int day = int.parse(date[1]);
 
-      DateTime comparable = DateTime(2020, month, day);
+      DateTime comparable = DateTime(2021, month, day);
 
       return comparable.isAfter(_pickedDateFrom) &&
           comparable.isBefore(_pickedDateTo) &&

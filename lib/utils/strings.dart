@@ -20,6 +20,8 @@ class Strings {
   static const String noAppointmentsSchedule =
       'No appointments available for this schedule';
   static const String noAppointments = 'No appointments for now';
+  static const String fromTimeAfter = 'From time can\'t be after To time';
+  static const String fromDateAfter = 'From date can\'t be after To date';
   static const String settings = 'Settings';
   static const String lock = 'Lock Dr. Time';
   static const String getHelp = 'Get Help';

@@ -13,16 +13,28 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  double _opacity = 0;
+  var _duration = Duration(milliseconds: 500);
+
+  _handleSplashFade(bool fadeIn) {
+    Timer(_duration, () {
+      setState(() {
+        _opacity = fadeIn ? 1 : 0;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    _handleSplashFade(true);
     _checkForUserFirstTime();
   }
 
   _checkForUserFirstTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool signedIn = prefs.getBool('signedIn') ?? false;
-    var duration = Duration(milliseconds: 1000);
+    var duration = Duration(milliseconds: 2000);
 
     ///this is only used for testing purposes when [SignInScreen()] needs to be tested
     bool testSignIn = false;
@@ -48,9 +60,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Image(image: AssetImage(Images.splashLogo)),
+    return AnimatedOpacity(
+      duration: _duration,
+      opacity: _opacity,
+      onEnd: () => _handleSplashFade(false),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Image(image: AssetImage(Images.splashLogo)),
+        ),
       ),
     );
   }

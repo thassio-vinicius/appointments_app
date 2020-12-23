@@ -56,7 +56,7 @@ class CustomTextField extends StatelessWidget {
                     useEmoji: false,
                     selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                   ),
-                  initialValue: PhoneNumber(isoCode: 'US'),
+                  //initialValue: PhoneNumber(isoCode: 'US'),
                   hintText: '',
                   keyboardAction: textInputAction,
                   onInputChanged: onPhoneNumberChanged,

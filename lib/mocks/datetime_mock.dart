@@ -7,9 +7,10 @@ class AppointmentsMock {
     DateTime now = DateTime.now();
 
     for (int i = 0; i < customLength; i++) {
-      String year = '2020';
-      String month =
-          (now.month + math.Random().nextInt(12 - now.month)).toString();
+      String year = '2021';
+      String month = now.month == 12
+          ? (math.Random().nextInt(11) + 1).toString()
+          : (now.month + math.Random().nextInt(12 - now.month)).toString();
       String day = month == now.month.toString()
           ? (math.Random().nextInt(30 - now.day) + now.day).toString()
           : (math.Random().nextInt(30) + 1).toString();
@@ -24,7 +25,7 @@ class AppointmentsMock {
       bool am = isToday ? now.hour < 12 : math.Random().nextBool();
 
       String appointment =
-          '${hour.length == 1 ? '0$hour' : hour}:${halfHour ? '30' : '00'} ${am ? 'am' : 'pm'}, $month.${day.length == 1 ? '0$day' : day}.$year';
+          '${hour.length == 1 ? '0$hour' : hour}:${halfHour ? '30' : '00'} ${am ? 'am' : 'pm'}, ${month.length == 1 ? '0$month' : month}.${day.length == 1 ? '0$day' : day}.$year';
 
       appointments.add(appointment);
     }

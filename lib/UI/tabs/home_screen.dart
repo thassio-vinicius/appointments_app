@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   _fadeInTransition() {
-    Timer(Duration(milliseconds: 1000), () {
+    Timer(Duration(milliseconds: 500), () {
       setState(() {
         _opacity = 1;
       });
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       body: AnimatedOpacity(
         opacity: _opacity,
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 500),
         child: SafeArea(
           child: Stack(
             children: [
@@ -217,7 +217,12 @@ class _HomeScreenState extends State<HomeScreen>
                                   ),
                                 ),
                               ),
-                              child: Image(image: AssetImage(Images.settings)),
+                              child: Image(
+                                image: AssetImage(Images.settings),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.06,
+                                width: MediaQuery.of(context).size.width * 0.06,
+                              ),
                             ),
                           ),
                         ],
