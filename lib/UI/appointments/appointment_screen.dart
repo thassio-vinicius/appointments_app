@@ -25,14 +25,13 @@ class AppointmentScreen extends StatefulWidget {
   _AppointmentScreenState createState() => _AppointmentScreenState();
 }
 
-class _AppointmentScreenState extends State<AppointmentScreen>
-    with SingleTickerProviderStateMixin {
+class _AppointmentScreenState extends State<AppointmentScreen> with SingleTickerProviderStateMixin {
   bool _fromTimeAfter = false;
   TabController _tabController;
   DateTime _pickedDateFrom = DateTime.now();
-  DateTime _pickedDateTo = DateTime.now();
+  DateTime _pickedDateTo = DateTime.now().add(Duration(days: 1));
   TimeOfDay _timeFrom = TimeOfDay.now();
-  TimeOfDay _timeTo = TimeOfDay.now();
+  TimeOfDay _timeTo = (TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: TimeOfDay.now().minute));
   List<String> _appointments = AppointmentsMock.createRandomDateTimes();
 
   @override
@@ -67,21 +66,18 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
+                    //width: MediaQuery.of(context).size.width * 0.7,
                     height: MediaQuery.of(context).size.height * 0.04,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                        color: HexColor('EEEEEE')),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12)), color: HexColor('EEEEEE')),
                     padding: EdgeInsets.all(2),
                     child: DefaultTabController(
                       initialIndex: 0,
                       length: 2,
                       child: TabBar(
                         controller: _tabController,
-                        indicator: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                        indicator:
+                            BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                         labelStyle: TextStyle(
                           color: Colors.black,
                           fontSize: 13,
@@ -94,10 +90,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                           fontWeight: FontWeight.w500,
                         ),
                         indicatorSize: TabBarIndicatorSize.tab,
-                        tabs: [
-                          Tab(text: Strings.soonestAvailable),
-                          Tab(text: Strings.fitSchedule)
-                        ],
+                        tabs: [Tab(text: Strings.soonestAvailable), Tab(text: Strings.fitSchedule)],
                       ),
                     ),
                   ),
@@ -144,13 +137,9 @@ class _AppointmentScreenState extends State<AppointmentScreen>
               child: _filteredAppointments().isEmpty
                   ? Center(
                       child: Text(
-                        _fromTimeAfter
-                            ? Strings.fromTimeAfter
-                            : Strings.noAppointmentsSchedule,
+                        _fromTimeAfter ? Strings.fromTimeAfter : Strings.noAppointmentsSchedule,
                         style: TextStyle(
-                          color: _fromTimeAfter
-                              ? Colors.red
-                              : Theme.of(context).primaryColor,
+                          color: _fromTimeAfter ? Colors.red : Theme.of(context).primaryColor,
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
                         ),
@@ -187,9 +176,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
         alignment: Alignment.centerLeft,
         width: MediaQuery.of(context).size.width * 0.3,
         height: MediaQuery.of(context).size.height * 0.04,
-        decoration: BoxDecoration(
-            color: HexColor('E5E5E5'),
-            borderRadius: BorderRadius.all(Radius.circular(6))),
+        decoration: BoxDecoration(color: HexColor('E5E5E5'), borderRadius: BorderRadius.all(Radius.circular(6))),
         padding: EdgeInsets.all(4),
         child: Text(
           from ? _timeFrom.format(context) : _timeTo.format(context),
@@ -204,9 +191,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
 
   _showTimePicker(bool from) async {
     TimeOfDay result = await showTimePicker(
-            context: context,
-            initialTime: from ? _timeFrom : _timeTo,
-            initialEntryMode: TimePickerEntryMode.dial) ??
+            context: context, initialTime: from ? _timeFrom : _timeTo, initialEntryMode: TimePickerEntryMode.dial) ??
         TimeOfDay.now();
 
     if (from) {
@@ -251,20 +236,15 @@ class _AppointmentScreenState extends State<AppointmentScreen>
             ),
           ),
           GestureDetector(
-            onTap: () => Platform.isIOS
-                ? _buildCupertinoDatePicker(from)
-                : _buildMaterialDatePicker(from),
+            onTap: () => Platform.isIOS ? _buildCupertinoDatePicker(from) : _buildMaterialDatePicker(from),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.4,
               height: MediaQuery.of(context).size.height * 0.04,
               alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                  color: HexColor('E5E5E5'),
-                  borderRadius: BorderRadius.all(Radius.circular(6))),
+              decoration: BoxDecoration(color: HexColor('E5E5E5'), borderRadius: BorderRadius.all(Radius.circular(6))),
               padding: EdgeInsets.all(4),
               child: Text(
-                DateFormat.MMMMd()
-                    .format(from ? _pickedDateFrom : _pickedDateTo),
+                DateFormat.MMMMd().format(from ? _pickedDateFrom : _pickedDateTo),
                 style: TextStyle(
                   fontSize: 15,
                   color: Theme.of(context).primaryColor,
@@ -299,8 +279,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                   });
                 }
                 if (_pickedDateFrom.isAfter(_pickedDateTo)) {
-                  Fluttertoast.showToast(
-                      msg: "From date can't be after To date");
+                  Fluttertoast.showToast(msg: "From date can't be after To date");
                 } else {
                   Navigator.pop(context);
                 }
@@ -335,8 +314,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                     }
 
                     if (_pickedDateFrom.isAfter(_pickedDateTo)) {
-                      Fluttertoast.showToast(
-                          msg: "From date can't be after To date");
+                      Fluttertoast.showToast(msg: "From date can't be after To date");
                     } else {
                       Navigator.pop(context);
                     }
@@ -351,8 +329,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
     return ListView.builder(
       padding: EdgeInsets.all(12),
       itemCount: filter ? _filteredAppointments().length : _appointments.length,
-      itemBuilder: (context, index) => _appointmentCard(
-          filter ? _filteredAppointments()[index] : _appointments[index]),
+      itemBuilder: (context, index) => _appointmentCard(filter ? _filteredAppointments()[index] : _appointments[index]),
     );
   }
 
@@ -369,7 +346,7 @@ class _AppointmentScreenState extends State<AppointmentScreen>
       int month = int.parse(date.first);
       int day = int.parse(date[1]);
 
-      DateTime comparable = DateTime(2021, month, day);
+      DateTime comparable = DateTime(DateTime.now().year, month, day);
 
       return comparable.isAfter(_pickedDateFrom) &&
           comparable.isBefore(_pickedDateTo) &&
@@ -435,9 +412,8 @@ class _AppointmentScreenState extends State<AppointmentScreen>
 
   Widget _backButton() {
     return Container(
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.all(Radius.circular(25))),
+      decoration:
+          BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.all(Radius.circular(25))),
       padding: EdgeInsets.all(4),
       child: FlatButton.icon(
         onPressed: () => Navigator.pop(context),

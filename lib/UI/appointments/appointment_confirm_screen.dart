@@ -25,12 +25,10 @@ class AppointmentConfirmScreen extends StatefulWidget {
     this.photo,
   });
   @override
-  _AppointmentConfirmScreenState createState() =>
-      _AppointmentConfirmScreenState();
+  _AppointmentConfirmScreenState createState() => _AppointmentConfirmScreenState();
 }
 
-class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
-    with SingleTickerProviderStateMixin {
+class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen> with SingleTickerProviderStateMixin {
   String _displayName = '';
   int _currentIndex = 0;
   TabController _tabController;
@@ -84,29 +82,22 @@ class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
                     GestureDetector(
                       child: Text(
                         Strings.cancel,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 15),
+                        style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 15),
                       ),
                       onTap: () => Navigator.pop(context),
                     ),
                     CustomRaisedButton(
                         label: Strings.confirm,
                         onTap: () {
-                          Provider.of<CalendarScreenProvider>(context,
-                                  listen: false)
-                              .addDoctorCard(
+                          Provider.of<CalendarScreenProvider>(context, listen: false).addDoctorCard(
                             doctorName: widget.doctorName,
                             specialty: widget.doctorSpecialty,
                             appointment: widget.appointment,
                             petDoctor: widget.petDoctor,
                           );
 
-                          if (int.parse(widget.appointment.split('.')[1]) ==
-                              DateTime.now().day) {
-                            Provider.of<TodayScreenProvider>(context,
-                                    listen: false)
-                                .addDoctorCard(
+                          if (int.parse(widget.appointment.split('.')[1]) == DateTime.now().day) {
+                            Provider.of<TodayScreenProvider>(context, listen: false).addDoctorCard(
                               doctorName: widget.doctorName,
                               specialty: widget.doctorSpecialty,
                               time: widget.appointment.split(',').first,
@@ -114,8 +105,7 @@ class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
                             );
                           }
 
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (_) => HomeScreen()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
                         })
                   ],
                 ),
@@ -153,20 +143,16 @@ class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.8,
+          //width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.04,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: HexColor('EEEEEE')),
+          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12)), color: HexColor('EEEEEE')),
           padding: EdgeInsets.all(2),
           child: DefaultTabController(
             initialIndex: _currentIndex,
             length: 4,
             child: TabBar(
               controller: _tabController,
-              indicator: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              indicator: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
               labelStyle: TextStyle(
                 color: Colors.black,
                 fontSize: 13,
@@ -195,9 +181,7 @@ class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
   Widget _appointmentCard() {
     return Container(
       decoration: BoxDecoration(
-        color: widget.petDoctor
-            ? HexColor('#93D8CA')
-            : Theme.of(context).cardColor,
+        color: widget.petDoctor ? HexColor('#93D8CA') : Theme.of(context).cardColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       width: MediaQuery.of(context).size.width * 0.95,
@@ -222,17 +206,12 @@ class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
                   widget.doctorSpecialty,
                   style: TextStyle(
                     fontSize: 14,
-                    color: widget.petDoctor
-                        ? HexColor('24AF93')
-                        : Theme.of(context).primaryColor,
+                    color: widget.petDoctor ? HexColor('24AF93') : Theme.of(context).primaryColor,
                   ),
                 ),
                 Text(
                   widget.appointment,
-                  style: TextStyle(
-                      color:
-                          widget.petDoctor ? Colors.black : HexColor('017AFD'),
-                      fontSize: 15),
+                  style: TextStyle(color: widget.petDoctor ? Colors.black : HexColor('017AFD'), fontSize: 15),
                 ),
               ],
             ),
@@ -261,10 +240,7 @@ class _AppointmentConfirmScreenState extends State<AppointmentConfirmScreen>
           ? Center(
               child: Text(
                 '?',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             )
           : Image.asset(
