@@ -16,13 +16,12 @@ Doctor summary (to see all details, run flutter doctor -v):
 [✓] Connected device (3 available)
 [✓] HTTP Host Availability
 ```
+### App screens preview
 
-### App preview
+<img width="350" src="./previewed/previewed1.jpeg" >
 
-![previewed1](previewed/previewed1.jpeg)
+<img align="center" width="350" src="./previewed/previewed2.jpeg"   ><img align="center" width="350" src="./previewed/previewed3.jpeg" hspace="50">
 
-![previewed2](previewed/previewed2.jpeg) ![previewed3](previewed/previewed3.jpeg)
-
-![previewed4](previewed/previewed4.jpeg) ![previewed5](previewed/previewed5.jpeg)
+<img align="center" width="350"  src="./previewed/previewed4.jpeg"   ><img width="350" align="center" src="./previewed/previewed5.jpeg" hspace="50">
 
 Mockups and templates created with [Previewed](https://previewed.app/)
