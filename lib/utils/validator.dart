@@ -33,8 +33,7 @@ class ValidatorInputFormatter implements TextInputFormatter {
   final StringValidator editingValidator;
 
   @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     final bool oldValueValid = editingValidator.isValid(oldValue.text);
     final bool newValueValid = editingValidator.isValid(newValue.text);
     if (oldValueValid && !newValueValid) {
@@ -74,7 +73,6 @@ class TextFieldValidators {
       ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator());
   final StringValidator emailSubmitValidator = EmailSubmitRegexValidator();
   final StringValidator passwordSubmitValidator = MinLengthStringValidator(6);
-  final StringValidator displayNameSubmitValidator =
-      MinLengthStringValidator(3);
+  final StringValidator displayNameSubmitValidator = MinLengthStringValidator(3);
   final StringValidator phoneNumberSubmitValidator = NonEmptyStringValidator();
 }

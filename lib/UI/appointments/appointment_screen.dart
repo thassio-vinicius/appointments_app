@@ -411,20 +411,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> with SingleTicker
   }
 
   Widget _backButton() {
-    return Container(
-      decoration:
-          BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.all(Radius.circular(25))),
-      padding: EdgeInsets.all(4),
-      child: FlatButton.icon(
-        onPressed: () => Navigator.pop(context),
-        icon: Icon(
-          Icons.arrow_back,
-          color: HexColor('30B8F1'),
-        ),
-        label: Text(
-          'Back',
-          style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
-        ),
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(Theme.of(context).cardColor),
+          shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))))),
+      onPressed: () => Navigator.pop(context),
+      icon: Icon(
+        Icons.arrow_back,
+        color: HexColor('30B8F1'),
+      ),
+      label: Text(
+        'Back',
+        style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
       ),
     );
   }
